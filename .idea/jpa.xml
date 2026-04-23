@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="hirely-backend" name="hirely-backend" framework="JPA" ormUnit="hirely-backend:hirely-backend" defaultDataSourceId="625c2a0e-95e7-443e-8d3b-dffc4039f3f7" />
+    </persistence-units>
+  </component>
+</project>
