@@ -1,6 +1,6 @@
 package com.project.hirely_backend.entities;
 
-public enum Role {
+public enum Roles {
     STUDENT,
     COMPANY,
     ADMIN
