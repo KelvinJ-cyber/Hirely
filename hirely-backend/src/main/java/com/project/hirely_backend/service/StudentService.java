@@ -38,6 +38,7 @@ public class StudentService {
         }
 
         StudentProfileDetails profile = StudentProfileDetails.builder()
+                .user(user)
                 .aboutMe(dto.aboutMe)
                 .bio(dto.getBio())
                 .skillSet(dto.getSkillSets())

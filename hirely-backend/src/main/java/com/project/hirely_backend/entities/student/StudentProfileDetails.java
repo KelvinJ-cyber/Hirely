@@ -17,7 +17,7 @@ import java.util.List;
 public class StudentProfileDetails{
 
     @Id
-    private Long id;
+    private Long profileId;
     private String aboutMe;
     private String bio;
 
