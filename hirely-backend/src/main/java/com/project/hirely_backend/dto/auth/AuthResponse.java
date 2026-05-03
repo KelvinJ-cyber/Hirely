@@ -1,6 +1,6 @@
 package com.project.hirely_backend.dto.auth;
 
-import com.project.hirely_backend.entities.Role;
+import com.project.hirely_backend.entities.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponse {
+    private Long userId;
     private String token;
     private String email;
-    private Role role;
+    private Roles roles;
     private String fullName;
     private String message;
 }

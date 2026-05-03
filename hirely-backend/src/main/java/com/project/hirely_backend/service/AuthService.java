@@ -4,7 +4,7 @@ package com.project.hirely_backend.service;
 import com.project.hirely_backend.dto.auth.AuthResponse;
 import com.project.hirely_backend.dto.auth.LoginRequest;
 import com.project.hirely_backend.dto.auth.RegisterRequest;
-import com.project.hirely_backend.entities.Role;
+import com.project.hirely_backend.entities.Roles;
 import com.project.hirely_backend.entities.User;
 import com.project.hirely_backend.repo.UserRepo;
 import com.project.hirely_backend.security.JwtUtil;
@@ -26,39 +26,33 @@ public class AuthService {
         if(userRepo.existsByEmail(registerRequest.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
-        // Validate company-specific fields for COMPANY role
-        if (registerRequest.getRole() == Role.COMPANY) {
-            if (registerRequest.getCompanyName() == null || registerRequest.getCompanyName().isBlank()) {
-                throw new RuntimeException("Company name is required for company registration");
-            }
-        }
+
 
 
         // Build user entity
         User user = User.builder()
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(registerRequest.getRole())
+                .roles(registerRequest.getRoles())
                 .fullName(registerRequest.getFullName())
                 .phone(registerRequest.getPhone())
-                .companyName(registerRequest.getCompanyName())
-                .companyDescription(registerRequest.getCompanyDescription())
-                .isApproved(registerRequest.getRole() != Role.COMPANY) // Auto-approve non-company users
+                .isApproved(registerRequest.getRoles() != Roles.COMPANY) // Auto-approve non-company users
                 .isActive(true)
                 .build();
 
         userRepo.save(user);
 
         // Generate JWT token
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
 
         return AuthResponse.builder()
+                .userId(user.getId())
                 .token(token)
                 .email(user.getEmail())
-                .role(user.getRole())
+                .roles(user.getRoles())
                 .fullName(user.getFullName())
                 .message("Registration successful" +
-                        (user.getRole() == Role.COMPANY ? ". Awaiting admin approval." : ""))
+                        (user.getRoles() == Roles.COMPANY ? ". Awaiting admin approval." : ""))
                 .build();
 
     }
@@ -79,17 +73,18 @@ public class AuthService {
         }
 
         // Check if company is approved
-        if (user.getRole() == Role.COMPANY && !user.getIsApproved()) {
+        if (user.getRoles() == Roles.COMPANY && !user.getIsApproved()) {
             throw new RuntimeException("Company account pending approval");
         }
 
         // Generate JWT token
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
 
         return AuthResponse.builder()
+                .userId(user.getId())
                 .token(token)
                 .email(user.getEmail())
-                .role(user.getRole())
+                .roles(user.getRoles())
                 .fullName(user.getFullName())
                 .message("Login successful")
                 .build();

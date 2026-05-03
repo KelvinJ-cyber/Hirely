@@ -1,6 +1,8 @@
 package com.project.hirely_backend.entities;
 
+import com.project.hirely_backend.entities.student.StudentProfileDetails;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +25,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @Email()
     private String email;
 
     @Column(nullable = false)
@@ -30,18 +33,15 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private Roles roles;
 
     @Column(nullable = false)
     private String fullName;
 
     private String phone;
 
-    // Company-specific fields
-    private String companyName;
-
-    @Column(columnDefinition = "TEXT")
-    private String companyDescription;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private StudentProfileDetails profileDetails;
 
     @Column(nullable = false)
     private Boolean isApproved = false;

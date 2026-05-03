@@ -1,6 +1,6 @@
 package com.project.hirely_backend.security;
 
-import com.project.hirely_backend.entities.Role;
+import com.project.hirely_backend.entities.Roles;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -17,18 +17,18 @@ public class JwtUtil {
     @Value("${security.jwt.secret-key}")
     private String secret;
 
-    @Value("${security.jwt.expiration}")
+    @Value("${security.jwt.expiration-time}")
     private Long expiration;
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(String email, Role role){
+    public String generateToken(String email, Roles roles){
 
         return Jwts.builder()
                 .setSubject(email)
-                .claim("role", role.name())
+                .claim("role", roles.name())
                 .signWith(getSigningKey())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+ expiration))
@@ -47,9 +47,9 @@ public class JwtUtil {
                 .getBody();
     }
 
-    public Role extractRole(String token) {
+    public Roles extractRole(String token) {
         String role = (String) extractClaims(token).get("role");
-        return Role.valueOf(role);
+        return Roles.valueOf(role);
     }
 
     public boolean isTokenValid(String token) {

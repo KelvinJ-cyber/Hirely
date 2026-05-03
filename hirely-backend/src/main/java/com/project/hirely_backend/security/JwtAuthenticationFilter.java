@@ -1,6 +1,6 @@
 package com.project.hirely_backend.security;
 
-import com.project.hirely_backend.entities.Role;
+import com.project.hirely_backend.entities.Roles;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,13 +35,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // ? Authenticate the user by registering their identity and roles, then proceed with the filter chain
         if (jwtUtil.isTokenValid(token)) {
             String email = jwtUtil.extractEmail(token);
-            Role role = jwtUtil.extractRole(token);
+            Roles roles = jwtUtil.extractRole(token);
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             email,
                             null,
-                            Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()))
+                            Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + roles.name()))
                     );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
