@@ -32,7 +32,8 @@ export function Login() {
     const validation = validateForm(loginSchema, formData);
     if (!validation.success) { setErrors(validation.errors); return; }
 
-    const result = await login(formData);
+    const { email, password, role } = formData;
+    const result = await login({ email, password, role });
     if (result.success) {
       navigate('/dashboard');
     } else {

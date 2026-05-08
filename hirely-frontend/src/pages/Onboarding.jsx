@@ -18,7 +18,8 @@ const STEPS = [
 
 export function Onboarding() {
   const navigate = useNavigate();
-  const { userId } = useAuth();
+  const { userId: ctxUserId } = useAuth();
+  const userId = ctxUserId || localStorage.getItem('userId');
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
