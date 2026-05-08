@@ -35,9 +35,9 @@ public class StudentController {
         studentService.addExperience(userId, dto);
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<UserProfileResponse> getCurrentUser() {
-        return ResponseEntity.ok(studentService.getCurrentUser());
+    @GetMapping("/me/{userId}")
+    public ResponseEntity<UserProfileResponse> getCurrentUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(studentService.getCurrentUser(userId));
     }
 
 

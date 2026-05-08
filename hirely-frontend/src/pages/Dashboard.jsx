@@ -1,9 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Button } from '../components/ui/Button';
 import { Briefcase, LogOut } from 'lucide-react';
 
 export function Dashboard() {
+  const navigate = useNavigate();
   const { user, role, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
@@ -18,7 +25,7 @@ export function Dashboard() {
         <h1 className="text-2xl font-bold text-primary mb-2">Welcome{user?.fullName ? `, ${user.fullName}` : ''}!</h1>
         <p className="text-secondary mb-1">Role: <span className="font-medium text-primary">{role}</span></p>
         <p className="text-sm text-muted mb-6">Your dashboard is coming soon.</p>
-        <Button variant="outline" onClick={logout} leftIcon={<LogOut className="w-4 h-4" />}>
+        <Button variant="outline" onClick={handleLogout} leftIcon={<LogOut className="w-4 h-4" />}>
           Sign Out
         </Button>
       </div>

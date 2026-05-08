@@ -12,7 +12,6 @@ import com.project.hirely_backend.entities.student.StudentProfileDetails;
 import com.project.hirely_backend.repo.StudentProfileRepo;
 import com.project.hirely_backend.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -97,9 +96,9 @@ public class StudentService {
     }
 
     // Get currently logged-in user
-    public UserProfileResponse getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepo.findByEmail(email)
+    public UserProfileResponse getCurrentUser( Long userId) {
+
+        User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return mapToProfileResponse(user);

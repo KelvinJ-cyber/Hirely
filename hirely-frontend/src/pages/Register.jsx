@@ -31,9 +31,8 @@ export function Register() {
     setApiError('');
     const validation = validateForm(registerSchema, formData);
     if (!validation.success) { setErrors(validation.errors); return; }
-    const { confirmPassword, role, ...rest } = formData;
-    const registerData = { ...rest, roles: role };
-    const result = await register(registerData);
+    const { confirmPassword, ...rest } = formData;
+    const result = await register(rest);
     if (result.success) navigate('/onboarding');
     else setApiError(result.error);
   };
