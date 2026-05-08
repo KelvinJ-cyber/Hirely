@@ -7,7 +7,6 @@ import com.project.hirely_backend.dto.auth.RegisterRequest;
 import com.project.hirely_backend.entities.Roles;
 import com.project.hirely_backend.entities.User;
 import com.project.hirely_backend.repo.UserRepo;
-import com.project.hirely_backend.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ public class AuthService {
 
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
 
     public AuthResponse register (RegisterRequest registerRequest) {
 
@@ -43,11 +41,9 @@ public class AuthService {
         userRepo.save(user);
 
         // Generate JWT token
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
 
         return AuthResponse.builder()
                 .userId(user.getId())
-                .token(token)
                 .email(user.getEmail())
                 .roles(user.getRoles())
                 .fullName(user.getFullName())
@@ -77,12 +73,9 @@ public class AuthService {
             throw new RuntimeException("Company account pending approval");
         }
 
-        // Generate JWT token
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRoles());
 
         return AuthResponse.builder()
                 .userId(user.getId())
-                .token(token)
                 .email(user.getEmail())
                 .roles(user.getRoles())
                 .fullName(user.getFullName())
