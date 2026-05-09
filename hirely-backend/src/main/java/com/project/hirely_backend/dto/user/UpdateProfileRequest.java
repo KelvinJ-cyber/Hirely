@@ -5,14 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExperienceDTO {
+public class UpdateProfileRequest {
 
-    private String title;
-    private String description;
-    private String nameOfInstitute;
-    private String timeline;
+    private String aboutMe;
+    private String bio;
+    private List<String> skillSets;
 }
