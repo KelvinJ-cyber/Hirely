@@ -1,23 +1,20 @@
 package com.project.hirely_backend.dto.user;
 
-import com.project.hirely_backend.entities.student.Education;
-import com.project.hirely_backend.entities.student.Experience;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @Data
-public class UserProfileResponse {
+public class StudentProfileResponse {
 
     private Long id;
     private String email;
     private String fullName;
     private String phone;
-    private List<Education> educationList;
-    private  List<Experience> experienceList;
+    private List<EducationResponseDTO> educationList;
+    private  List<ExperienceResponseDTO> experienceList;
     private String aboutMe;
     private String bio;
     private List<String> skillSet;

@@ -1,20 +1,20 @@
 package com.project.hirely_backend.service;
 
-import com.project.hirely_backend.dto.user.CreateProfileRequest;
-import com.project.hirely_backend.dto.user.EducationDTO;
-import com.project.hirely_backend.dto.user.ExperienceDTO;
-import com.project.hirely_backend.dto.user.UserProfileResponse;
+import com.project.hirely_backend.dto.user.*;
 import com.project.hirely_backend.entities.Roles;
 import com.project.hirely_backend.entities.User;
 import com.project.hirely_backend.entities.student.Education;
 import com.project.hirely_backend.entities.student.Experience;
 import com.project.hirely_backend.entities.student.StudentProfileDetails;
+import com.project.hirely_backend.repo.EducationRepo;
+import com.project.hirely_backend.repo.ExperienceRepo;
 import com.project.hirely_backend.repo.StudentProfileRepo;
 import com.project.hirely_backend.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +23,8 @@ public class StudentService {
 
     private final UserRepo userRepo;
     private final StudentProfileRepo studentProfileRepo;
+    private final EducationRepo educationRepo;
+    private final ExperienceRepo experienceRepo;
 
     public void createProfile(Long userId, CreateProfileRequest dto) {
 
@@ -48,6 +50,28 @@ public class StudentService {
         userRepo.save(user);
     }
 
+    // ==================== PROFILE (Bio, AboutMe, Skills) ====================
+
+    public void updateProfile(Long userId, UpdateProfileRequest dto) {
+
+        StudentProfileDetails profile = studentProfileRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found!"));
+
+        if (dto.getAboutMe() != null) {
+            profile.setAboutMe(dto.getAboutMe());
+        }
+        if (dto.getBio() != null) {
+            profile.setBio(dto.getBio());
+        }
+        if (dto.getSkillSets() != null) {
+            profile.setSkillSet(dto.getSkillSets());
+        }
+
+        studentProfileRepo.save(profile);
+    }
+
+    // ==================== EDUCATION ====================
+
     public void addEducation(Long userId, EducationDTO dto){
 
         StudentProfileDetails profile = studentProfileRepo.findById(userId)
@@ -60,8 +84,48 @@ public class StudentService {
         edu.setNameOfInstitute(dto.getNameOfInstitute());
 
         profile.addEducation(edu);
+        studentProfileRepo.save(profile);
 
     }
+
+    public void updateEducation(Long userId, Long educationId, EducationDTO dto) {
+
+        // Verify profile exists for this user
+        studentProfileRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found!"));
+
+        Education edu = educationRepo.findById(educationId)
+                .orElseThrow(() -> new RuntimeException("Education not found!"));
+
+        // Verify this education belongs to the user's profile
+        if (!edu.getProfileDetails().getProfileId().equals(userId)) {
+            throw new RuntimeException("Education does not belong to this user!");
+        }
+
+        edu.setTitle(dto.getTitle());
+        edu.setDescription(dto.getDescription());
+        edu.setTimeline(dto.getTimeline());
+        edu.setNameOfInstitute(dto.getNameOfInstitute());
+
+        educationRepo.save(edu);
+    }
+
+    public void deleteEducation(Long userId, Long educationId) {
+
+        studentProfileRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found!"));
+
+        Education edu = educationRepo.findById(educationId)
+                .orElseThrow(() -> new RuntimeException("Education not found!"));
+
+        if (!edu.getProfileDetails().getProfileId().equals(userId)) {
+            throw new RuntimeException("Education does not belong to this user!");
+        }
+
+        educationRepo.delete(edu);
+    }
+
+    // ==================== EXPERIENCE ====================
 
     public void addExperience(Long userId, ExperienceDTO dto){
 
@@ -75,20 +139,99 @@ public class StudentService {
         exp.setNameOfInstitute(dto.getNameOfInstitute());
 
         profile.addExperience(exp);
-
+        studentProfileRepo.save(profile);
     }
 
+    public void updateExperience(Long userId, Long experienceId, ExperienceDTO dto) {
 
+        studentProfileRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found!"));
 
-    // Helper: Map User to UserProfileResponse
-    private UserProfileResponse mapToProfileResponse(User user) {
-        return UserProfileResponse.builder()
+        Experience exp = experienceRepo.findById(experienceId)
+                .orElseThrow(() -> new RuntimeException("Experience not found!"));
+
+        if (!exp.getProfileDetails().getProfileId().equals(userId)) {
+            throw new RuntimeException("Experience does not belong to this user!");
+        }
+
+        exp.setTitle(dto.getTitle());
+        exp.setDescription(dto.getDescription());
+        exp.setTimeline(dto.getTimeline());
+        exp.setNameOfInstitute(dto.getNameOfInstitute());
+
+        experienceRepo.save(exp);
+    }
+
+    public void deleteExperience(Long userId, Long experienceId) {
+
+        studentProfileRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found!"));
+
+        Experience exp = experienceRepo.findById(experienceId)
+                .orElseThrow(() -> new RuntimeException("Experience not found!"));
+
+        if (!exp.getProfileDetails().getProfileId().equals(userId)) {
+            throw new RuntimeException("Experience does not belong to this user!");
+        }
+
+        experienceRepo.delete(exp);
+    }
+
+    // ==================== RESUME ====================
+
+    public void uploadResume(Long userId, MultipartFile file) throws IOException {
+
+        StudentProfileDetails profile = studentProfileRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found!"));
+
+        profile.setFileName(file.getOriginalFilename());
+        profile.setData(file.getBytes());
+        studentProfileRepo.save(profile);
+    }
+
+    // ==================== MAPPERS ====================
+
+    private EducationResponseDTO mapEducation(Education edu) {
+
+        return EducationResponseDTO.builder()
+                .educationId(edu.getEducation_id())
+                .title(edu.getTitle())
+                .description(edu.getDescription())
+                .nameOfInstitute(edu.getNameOfInstitute())
+                .timeline(edu.getTimeline())
+                .build();
+    }
+
+    private ExperienceResponseDTO mapExperience(Experience exp) {
+
+        return ExperienceResponseDTO.builder()
+                .experienceId(exp.getExperience_id())
+                .title(exp.getTitle())
+                .description(exp.getDescription())
+                .nameOfInstitute(exp.getNameOfInstitute())
+                .timeline(exp.getTimeline())
+                .build();
+    }
+
+    // Helper: Map User to StudentProfileResponse
+    private StudentProfileResponse mapToProfileResponse(User user) {
+        return StudentProfileResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .fullName(user.getFullName())
                 .phone(user.getPhone())
-                .educationList(user.getProfileDetails().getEducationList())
-                .experienceList(user.getProfileDetails().getExperienceList())
+                .educationList(user.getProfileDetails()
+                        .getEducationList()
+                        .stream()
+                        .map(this::mapEducation)
+                        .collect(Collectors.toList()))
+                .experienceList(user.getProfileDetails()
+                        .getExperienceList()
+                        .stream()
+                        .map(this::mapExperience)
+                        .collect(Collectors.toList())
+
+                )
                 .aboutMe(user.getProfileDetails().getAboutMe())
                 .bio(user.getProfileDetails().getBio())
                 .skillSet(user.getProfileDetails().getSkillSet())
@@ -96,43 +239,12 @@ public class StudentService {
     }
 
     // Get currently logged-in user
-    public UserProfileResponse getCurrentUser( Long userId) {
+    public StudentProfileResponse getCurrentUser(Long userId) {
 
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return mapToProfileResponse(user);
     }
-    // Admin: Get all users by role
-    public List<UserProfileResponse> getUsersByRole(Roles roles) {
-        return userRepo.findByRoles(roles).stream()
-                .map(this::mapToProfileResponse)
-                .collect(Collectors.toList());
-    }
-
-    // Admin: Approve company
-    public UserProfileResponse approveCompany(Long companyId) {
-        User company = userRepo.findById(companyId)
-                .orElseThrow(() -> new RuntimeException("Company not found"));
-
-        if (company.getRoles() != Roles.COMPANY) {
-            throw new RuntimeException("User is not a company");
-        }
-
-        company.setIsApproved(true);
-        userRepo.save(company);
-        return mapToProfileResponse(company);
-    }
-
-
-    // Admin: Suspend/Activate user
-    public UserProfileResponse toggleUserStatus(Long userId) {
-        User user = userRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        user.setIsActive(!user.getIsActive());
-        userRepo.save(user);
-        return mapToProfileResponse(user);
-    }
-
 }
+
