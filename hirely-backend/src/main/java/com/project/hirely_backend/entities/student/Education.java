@@ -6,6 +6,8 @@ import lombok.*;
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Education extends BaseProfileItems {
 
     @Id
@@ -13,7 +15,7 @@ public class Education extends BaseProfileItems {
     private Long education_id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "profile_id")
     private StudentProfileDetails profileDetails;
 
 }
