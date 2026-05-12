@@ -2,7 +2,7 @@ import { Briefcase } from 'lucide-react';
 
 export function AuthLayout({ children, title, subtitle }) {
   return (
-    <div style={{ minHeight: '100vh', background: '#FFE0B2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1.5rem 1rem' }}>
+    <div style={{ height: '100vh', background: '#FFE0B2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: '2rem 1rem', overflowY: 'auto' }}>
       {/* Logo */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
         <div style={{ width: 36, height: 36, background: '#3E2522', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(62,37,34,0.2)' }}>
@@ -20,7 +20,7 @@ export function AuthLayout({ children, title, subtitle }) {
       )}
 
       {/* Card */}
-      <div className="auth-card" style={{ padding: '1.75rem 2rem' }}>
+      <div className="auth-card" style={{ padding: '1.75rem 2rem', width: '100%', maxWidth: '500px', borderRadius: '16px',}}>
         {children}
       </div>
     </div>

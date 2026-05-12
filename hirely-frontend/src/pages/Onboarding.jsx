@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChevronRight, ChevronLeft, Plus, X, Upload,
@@ -18,7 +18,8 @@ const STEPS = [
 
 export function Onboarding() {
   const navigate = useNavigate();
-  const { userId } = useAuth();
+  const { userId: ctxUserId } = useAuth();
+  const userId = ctxUserId || localStorage.getItem('userId');
   const [step, setStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -36,6 +37,10 @@ export function Onboarding() {
   const [experiences, setExperiences] = useState([
     { title: '', description: '', nameOfInstitute: '', timeline: '' },
   ]);
+
+  // Step 4 – Resume
+  const [resume, setResume] = useState(null);
+  const fileInputRef = useRef(null);
 
   /* ── helpers ── */
   const addSkill = () => {
@@ -60,23 +65,56 @@ export function Onboarding() {
   const submitStep = async () => {
     setIsLoading(true);
     setError('');
+
     try {
+
       if (step === 0) {
+
         await userService.createProfile(userId, profile);
+
       } else if (step === 1) {
+
         for (const edu of educations) {
-          if (edu.title && edu.nameOfInstitute) await userService.addEducation(userId, edu);
+          if (edu.title && edu.nameOfInstitute) {
+            await userService.addEducation(userId, edu);
+          }
         }
+
       } else if (step === 2) {
+
         for (const exp of experiences) {
-          if (exp.title && exp.nameOfInstitute) await userService.addExperience(userId, exp);
+          if (exp.title && exp.nameOfInstitute) {
+            await userService.addExperience(userId, exp);
+          }
+        }
+
+      } else if (step === 3) {
+
+        if (resume) {
+
+          const formData = new FormData();
+
+          formData.append('resume', resume);
+
+          await userService.uploadResume(userId, formData);
         }
       }
-      if (step < 3) setStep(step + 1);
-      else navigate('/dashboard');
+
+      if (step < 3) {
+        setStep(step + 1);
+      } else {
+        navigate('/dashboard');
+      }
+
     } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong. Please check your connection and try again.');
+
+      setError(
+        err.response?.data?.message ||
+        'Something went wrong. Please check your connection and try again.'
+      );
+
     } finally {
+
       setIsLoading(false);
     }
   };
@@ -225,18 +263,91 @@ export function Onboarding() {
   );
 
   const renderResume = () => (
-    <div style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      padding: '3rem 1.5rem', border: '2px dashed #D3A376', borderRadius: '1rem',
-      background: 'rgba(211,163,118,0.04)', transition: 'border-color 0.2s, background 0.2s',
-    }}
-      onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#C08B5C'; e.currentTarget.style.background = 'rgba(211,163,118,0.08)'; }}
-      onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#D3A376'; e.currentTarget.style.background = 'rgba(211,163,118,0.04)'; }}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '3rem 1.5rem',
+        border: '2px dashed #D3A376',
+        borderRadius: '1rem',
+        background: 'rgba(211,163,118,0.04)',
+      }}
     >
-      <Upload style={{ width: 40, height: 40, color: '#9CA3AF', marginBottom: 12 }} />
-      <p style={{ fontSize: '0.95rem', fontWeight: 600, color: '#3E2522', marginBottom: 4 }}>Upload your resume</p>
-      <p style={{ fontSize: '0.8rem', color: '#9CA3AF', marginBottom: 16 }}>PDF, DOC or DOCX (max 5MB)</p>
-      <Button type="button" variant="outline" size="sm">Browse Files</Button>
+      <Upload
+        style={{
+          width: 40,
+          height: 40,
+          color: '#9CA3AF',
+          marginBottom: 12,
+        }}
+      />
+
+      <p
+        style={{
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          color: '#3E2522',
+        }}
+      >
+        Upload your resume
+      </p>
+
+      <p
+        style={{
+          fontSize: '0.8rem',
+          color: '#9CA3AF',
+          marginBottom: 16,
+        }}
+      >
+        PDF, DOC or DOCX (max 5MB)
+      </p>
+
+      {/* REAL FILE INPUT */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".pdf,.doc,.docx"
+        style={{ display: 'none' }}
+        onChange={(e) => {
+          const file = e.target.files[0];
+
+          if (!file) return;
+
+          // file size check
+          if (file.size > 5 * 1024 * 1024) {
+            setError('File size must be less than 5MB');
+            return;
+          }
+
+          setResume(file);
+          setError('');
+        }}
+      />
+
+      {/* BUTTON CONNECTED TO INPUT */}
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => fileInputRef.current?.click()}
+      >
+        Browse Files
+      </Button>
+
+      {/* SHOW FILE NAME */}
+      {resume && (
+        <p
+          style={{
+            marginTop: '1rem',
+            color: '#16A34A',
+            fontSize: '0.85rem',
+          }}
+        >
+          Selected: {resume.name}
+        </p>
+      )}
     </div>
   );
 

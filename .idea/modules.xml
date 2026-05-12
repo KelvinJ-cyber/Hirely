@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/hirely-backend/hirely-backend.iml" filepath="$PROJECT_DIR$/hirely-backend/hirely-backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/hirely-project.iml" filepath="$PROJECT_DIR$/.idea/hirely-project.iml" />
     </modules>
   </component>
 </project>

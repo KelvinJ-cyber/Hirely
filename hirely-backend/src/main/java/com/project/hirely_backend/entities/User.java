@@ -1,5 +1,6 @@
 package com.project.hirely_backend.entities;
 
+import com.project.hirely_backend.entities.company.CompanyProfileDetails;
 import com.project.hirely_backend.entities.student.StudentProfileDetails;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -42,6 +43,9 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private StudentProfileDetails profileDetails;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private CompanyProfileDetails companyDetails;
 
     @Column(nullable = false)
     private Boolean isApproved = false;

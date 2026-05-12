@@ -14,9 +14,16 @@ export function Register() {
   const { register, isLoading } = useAuth();
 
   const [formData, setFormData] = useState({
-    fullName: '', email: '', phone: '', password: '', confirmPassword: '', roles: 'STUDENT',
+    fullName: '', email: '', phone: '', password: '', confirmPassword: '', role: 'STUDENT',
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+  fullName: '',
+  email: '',
+  phone: '',
+  password: '',
+  confirmPassword: '',
+  role: '',
+  });
   const [apiError, setApiError] = useState('');
 
   const handleChange = (e) => {
@@ -31,9 +38,8 @@ export function Register() {
     setApiError('');
     const validation = validateForm(registerSchema, formData);
     if (!validation.success) { setErrors(validation.errors); return; }
-    const { confirmPassword, role, ...rest } = formData;
-    const registerData = { ...rest, roles: role };
-    const result = await register(registerData);
+    const { confirmPassword, ...rest } = formData;
+    const result = await register(rest);
     if (result.success) navigate('/onboarding');
     else setApiError(result.error);
   };

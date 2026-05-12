@@ -2,11 +2,9 @@ package com.project.hirely_backend.entities.student;
 
 import com.project.hirely_backend.entities.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,10 +33,10 @@ public class StudentProfileDetails{
     private User user;
 
     @OneToMany(mappedBy = "profileDetails", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Education> educationList;
+    private List<Education> educationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "profileDetails", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Experience> experienceList;
+    private List<Experience> experienceList = new ArrayList<>();
 
 
     public void addEducation(Education edu) {
