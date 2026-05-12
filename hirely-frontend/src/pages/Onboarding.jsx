@@ -96,6 +96,9 @@ export function Onboarding() {
 
           formData.append('resume', resume);
 
+          console.log('Submitting resume:', resume);
+          console.log(formData.get('resume'));
+
           await userService.uploadResume(userId, formData);
         }
       }
@@ -120,7 +123,6 @@ export function Onboarding() {
   };
 
   const handleNext = () => {
-    if (step === 3) { navigate('/dashboard'); return; }
     submitStep();
   };
 
