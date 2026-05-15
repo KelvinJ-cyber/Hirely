@@ -15,4 +15,14 @@ public class EducationDTO {
     private String description;
     private String nameOfInstitute;
     private String timeline;
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ResumeDownloadResponse {
+        private String fileName;
+        private String fileType;
+        private byte[] fileData;
+    }
 }

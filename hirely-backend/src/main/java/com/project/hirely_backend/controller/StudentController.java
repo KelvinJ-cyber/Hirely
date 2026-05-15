@@ -87,7 +87,7 @@ public class StudentController {
 
     @PostMapping("/resume/{userId}")
     public ResponseEntity<String> uploadResume(@PathVariable Long userId,
-                                               @RequestParam("file") MultipartFile file) throws IOException {
+                                               @RequestParam("resume") MultipartFile file) throws IOException {
         studentService.uploadResume(userId, file);
         return ResponseEntity.ok("Resume uploaded successfully");
     }

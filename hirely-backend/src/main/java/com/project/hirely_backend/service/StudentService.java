@@ -189,6 +189,19 @@ public class StudentService {
         studentProfileRepo.save(profile);
     }
 
+    public EducationDTO.ResumeDownloadResponse downloadMyResume(Long applicationId, Long userId) {
+        User student = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        StudentProfileDetails profile = studentProfileRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Profile not found!"));
+
+        return EducationDTO.ResumeDownloadResponse.builder()
+                .fileName(profile.getFileName())
+                .fileData(profile.getData())
+                .build();
+    }
+
     // ==================== MAPPERS ====================
 
     private EducationResponseDTO mapEducation(Education edu) {

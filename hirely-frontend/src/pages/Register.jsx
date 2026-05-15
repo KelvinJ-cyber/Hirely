@@ -14,7 +14,7 @@ export function Register() {
   const { register, isLoading } = useAuth();
 
   const [formData, setFormData] = useState({
-    fullName: '', email: '', phone: '', password: '', confirmPassword: '', role: 'STUDENT',
+    fullName: '', email: '', phone: '', password: '', confirmPassword: '', roles: 'STUDENT',
   });
   const [errors, setErrors] = useState({
   fullName: '',

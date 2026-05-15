@@ -14,5 +14,6 @@ public class JobListingResponse {
     private JobType jobType;
     private String location;
     private String salaryRange;
+    private int numberOfApplicants;
     private LocalDateTime createdAt;
 }
