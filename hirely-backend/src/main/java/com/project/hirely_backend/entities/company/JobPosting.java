@@ -49,6 +49,8 @@ public class JobPosting {
 
     private Boolean isActive = true;
 
+    private int numberOfApplicants = 0;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
