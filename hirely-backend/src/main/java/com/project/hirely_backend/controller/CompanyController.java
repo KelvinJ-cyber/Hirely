@@ -1,9 +1,6 @@
 package com.project.hirely_backend.controller;
 
-import com.project.hirely_backend.dto.company.CreateJobRequest;
-import com.project.hirely_backend.dto.company.CreateProfileRequest;
-import com.project.hirely_backend.dto.company.JobPostingResponse;
-import com.project.hirely_backend.dto.company.UpdateJobRequest;
+import com.project.hirely_backend.dto.company.*;
 import com.project.hirely_backend.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +15,14 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @PostMapping("create-profile/{userId}")
-    public void createCompanyProfile(@PathVariable Long userId, @RequestBody CreateProfileRequest request) {
-        companyService.createCompanyProfile(userId, request);
+    public ResponseEntity<CreateProfileResponse> createCompanyProfile(@PathVariable Long userId, @RequestBody CreateProfileRequest request) {
+      return ResponseEntity.ok(companyService.createCompanyProfile(userId, request));
+    }
+
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<CreateProfileResponse> getProfile(@PathVariable Long userId) {
+        return ResponseEntity.ok(companyService.getCompanyProfile(userId));
+
     }
 
     @PostMapping("/create-job/{companyId}")

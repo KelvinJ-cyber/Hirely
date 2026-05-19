@@ -1,13 +1,11 @@
 package com.project.hirely_backend.service;
 
-import com.project.hirely_backend.dto.company.CreateJobRequest;
-import com.project.hirely_backend.dto.company.CreateProfileRequest;
-import com.project.hirely_backend.dto.company.JobPostingResponse;
-import com.project.hirely_backend.dto.company.UpdateJobRequest;
+import com.project.hirely_backend.dto.company.*;
 import com.project.hirely_backend.entities.Roles;
 import com.project.hirely_backend.entities.User;
 import com.project.hirely_backend.entities.company.CompanyProfileDetails;
 import com.project.hirely_backend.entities.company.JobPosting;
+import com.project.hirely_backend.repo.CompanyProfileDetailsRepo;
 import com.project.hirely_backend.repo.JobPostingRepo;
 import com.project.hirely_backend.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +17,7 @@ public class CompanyService {
 
     private final JobPostingRepo jobPostingRepo;
     private final UserRepo userRepo;
+    private final CompanyProfileDetailsRepo detailsRepo;
 
     public JobPostingResponse createJob(CreateJobRequest request, Long Id ) {
 
@@ -84,33 +83,35 @@ public class CompanyService {
 
     }
 
-        // Helper: Map to full response
-    private JobPostingResponse mapToResponse(JobPosting job) {
-        return JobPostingResponse.builder()
-                .id(job.getId())
-                .companyId(job.getCompany().getId())
-                .companyName(job.getCompany().getCompanyDetails().getLegalName())
-                .title(job.getTitle())
-                .department(job.getDepartment())
-                .roleOverview(job.getRoleOverview())
-                .requirementsAndQualifications(job.getRequirementsAndQualifications())
-                .techStack(job.getTechStack())
-                .jobType(job.getJobType())
-                .location(job.getLocation())
-                .salaryRange(job.getSalaryRange())
-                .isActive(job.getIsActive())
-                .createdAt(job.getCreatedAt())
-                .updatedAt(job.getUpdatedAt())
+    private CreateProfileResponse mapToResponse(CompanyProfileDetails request){
+        return CreateProfileResponse.builder()
+                .Id(request.getProfileId())
+                .legalName(request.getLegalName())
+                .website(request.getWebsite())
+                .aboutCompany(request.getAboutCompany())
+                .tagline(request.getTagline())
+                .missionStatement(request.getMissionStatement())
+                .coreValues(request.getCoreValues())
+                .headquarters(request.getHeadquarters())
+                .primaryIndustry(request.getPrimaryIndustry())
                 .build();
     }
 
-    public void createCompanyProfile(Long companyId, CreateProfileRequest request) {
+    public CreateProfileResponse getCompanyProfile(Long userId){
+
+        CompanyProfileDetails companyProfile = detailsRepo.findById(userId).
+                orElseThrow(() -> new RuntimeException(" Company Details not found"));
+
+        return mapToResponse(companyProfile);
+
+    }
+    public CreateProfileResponse createCompanyProfile(Long companyId, CreateProfileRequest request) {
 
         User company = userRepo.findById(companyId)
                 .orElseThrow(() -> new RuntimeException("Company not found!"));
 
         if (company.getRoles() != Roles.COMPANY){
-            throw new RuntimeException("Only Student can have profile");
+            throw new RuntimeException("Only Company can have profile");
         }
         if (company.getProfileDetails() != null) {
             throw new RuntimeException("Profile already exists");
@@ -129,6 +130,27 @@ public class CompanyService {
                 .build();
         company.setCompanyDetails(profileDetails);
         userRepo.save(company);
+        return mapToResponse(profileDetails);
+    }
+
+    // Helper: Map to full response
+    private JobPostingResponse mapToResponse(JobPosting job) {
+        return JobPostingResponse.builder()
+                .id(job.getId())
+                .companyId(job.getCompany().getId())
+                .companyName(job.getCompany().getCompanyDetails().getLegalName())
+                .title(job.getTitle())
+                .department(job.getDepartment())
+                .roleOverview(job.getRoleOverview())
+                .requirementsAndQualifications(job.getRequirementsAndQualifications())
+                .techStack(job.getTechStack())
+                .jobType(job.getJobType())
+                .location(job.getLocation())
+                .salaryRange(job.getSalaryRange())
+                .isActive(job.getIsActive())
+                .createdAt(job.getCreatedAt())
+                .updatedAt(job.getUpdatedAt())
+                .build();
     }
 }
 
