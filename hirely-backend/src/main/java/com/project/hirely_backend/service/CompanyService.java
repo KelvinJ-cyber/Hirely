@@ -152,5 +152,6 @@ public class CompanyService {
                 .updatedAt(job.getUpdatedAt())
                 .build();
     }
+
 }
 

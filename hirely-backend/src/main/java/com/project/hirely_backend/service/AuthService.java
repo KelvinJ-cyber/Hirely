@@ -34,7 +34,7 @@ public class AuthService {
                 .roles(registerRequest.getRoles())
                 .fullName(registerRequest.getFullName())
                 .phone(registerRequest.getPhone())
-                .isApproved(registerRequest.getRoles() != Roles.COMPANY) // Auto-approve non-company users
+                .isApproved(true)
                 .isActive(true)
                 .build();
 
@@ -47,8 +47,7 @@ public class AuthService {
                 .email(user.getEmail())
                 .roles(user.getRoles())
                 .fullName(user.getFullName())
-                .message("Registration successful" +
-                        (user.getRoles() == Roles.COMPANY ? ". Awaiting admin approval." : ""))
+                .message("Registration successful")
                 .build();
 
     }
