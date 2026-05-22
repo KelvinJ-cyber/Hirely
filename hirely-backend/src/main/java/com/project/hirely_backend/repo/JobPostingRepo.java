@@ -1,6 +1,7 @@
 package com.project.hirely_backend.repo;
 
 
+import com.project.hirely_backend.dto.company.CompanyJobCardResponse;
 import com.project.hirely_backend.entities.company.JobPosting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface JobPostingRepo extends JpaRepository<JobPosting, Long> {
     List<JobPosting> findByIsActiveTrueOrderByCreatedAtDesc();
 
     Optional<JobPosting> findByIdAndCompanyId(Long jobId, Long companyId);
+
+    List<JobPosting> findByCompanyId(Long id);
 }

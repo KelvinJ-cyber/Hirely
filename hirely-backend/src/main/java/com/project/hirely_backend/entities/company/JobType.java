@@ -9,10 +9,4 @@ public enum JobType {
     INTERNSHIP,
     CONTRACT;
 
-    //
-    @JsonCreator
-    public static JobType fromValue(String value) {
-        return JobType.valueOf(value.toUpperCase());
-    }
-
     }

@@ -11,6 +11,9 @@ import com.project.hirely_backend.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
@@ -133,6 +136,18 @@ public class CompanyService {
         return mapToResponse(profileDetails);
     }
 
+
+    public List<CompanyJobCardResponse> getALlCompanyJobs(Long companyId){
+
+        User company = userRepo.findById(companyId)
+                .orElseThrow(() -> new RuntimeException("Company not found!"));
+
+        return jobPostingRepo.findByCompanyId(company.getId())
+                .stream()
+                .map(this::mapToResponse2)
+                .collect(Collectors.toList());
+    }
+
     // Helper: Map to full response
     private JobPostingResponse mapToResponse(JobPosting job) {
         return JobPostingResponse.builder()
@@ -151,6 +166,19 @@ public class CompanyService {
                 .createdAt(job.getCreatedAt())
                 .updatedAt(job.getUpdatedAt())
                 .build();
+    }
+
+    private CompanyJobCardResponse mapToResponse2(JobPosting job) {
+        return CompanyJobCardResponse.builder()
+                .id(job.getId())
+                .title(job.getTitle())
+                .location(job.getLocation())
+                .jobType(job.getJobType())
+                .isActive(job.getIsActive())
+                .totalApplicants(job.getNumberOfApplicants())
+                .postedAt(job.getCreatedAt())
+                .build();
+
     }
 
 }

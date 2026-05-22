@@ -136,14 +136,18 @@ export function PostJob() {
 
               <div className="field-group">
                 <label className="field-label">Job Type <span style={{color: '#DC2626'}}>*</span></label>
-                <input
-                  type="text"
+                <select
                   name="jobType"
                   className="field-input"
-                  placeholder="e.g. Full-time, Contract"
                   value={formData.jobType}
                   onChange={handleChange}
-                />
+                >
+                  <option value="" disabled>Select Job Type</option>
+                  <option value="FULL_TIME">FULL_TIME</option>
+                  <option value="PART_TIME">PART_TIME</option>
+                  <option value="INTERNSHIP">INTERNSHIP</option>
+                  <option value="CONTRACT">CONTRACT</option>
+                </select>
               </div>
 
               <div className="field-group">
