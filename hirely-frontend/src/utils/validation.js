@@ -10,7 +10,7 @@ export const registerSchema = z.object({
     .regex(/[0-9]/, 'Must contain a number')
     .regex(/[^A-Za-z0-9]/, 'Must contain a special character'),
   confirmPassword: z.string(),
-  role: z.string().min(1, 'Please select a role'),
+  roles: z.string().min(1, 'Please select a role'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'Passwords do not match',
   path: ['confirmPassword'],

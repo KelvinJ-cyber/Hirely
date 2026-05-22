@@ -71,5 +71,32 @@ export const companyService = {
         error: error.response?.data?.message || error.message || 'Failed to create company profile.',
       };
     }
+  },
+
+  /**
+   * Creates a new job posting for the company.
+   *
+   * @param {string|number} companyId - The ID of the company.
+   * @param {Object} jobData - The job details payload.
+   * @returns {Promise<ServiceResponse>}
+   */
+  createJob: async (companyId, jobData) => {
+    if (!companyId) {
+      return { success: false, error: 'Company ID is required to create a job.' };
+    }
+
+    try {
+      const response = await api.post(`/api/companies/create-job/${companyId}`, jobData);
+      return { 
+        success: true, 
+        data: response.data 
+      };
+    } catch (error) {
+      console.error('[CompanyService] Error creating job:', error);
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || 'Failed to create job posting.',
+      };
+    }
   }
 };

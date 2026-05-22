@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, ExternalLink } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { BasicInformation } from '../components/company/BasicInformation';
 import { MissionVision } from '../components/company/MissionVision';
@@ -137,16 +138,13 @@ export function CompanyProfile() {
     if (!mission.about) missing.push('About Company');
     if (!mission.mission) missing.push('Mission Statement');
     if (mission.values.length === 0) missing.push('At least one Core Value');
-    if (!contact.email) missing.push('Recruitment Email');
-    if (!contact.linkedin) missing.push('LinkedIn URL');
-    if (!logoPreview) missing.push('Company Logo');
     return missing;
   };
 
   const handleSubmit = async () => {
     const missing = validateProfile();
     if (missing.length > 0) {
-      alert('Please fill the required fields:\n' + missing.join('\n'));
+      toast.error('Please fill the required fields:\n' + missing.join(', '));
       return;
     }
     setSubmitting(true);
@@ -159,19 +157,17 @@ export function CompanyProfile() {
       aboutCompany: mission.about,
       missionStatement: mission.mission,
       coreValues: mission.values,
-      email: contact.email,
-      linkedin: contact.linkedin,
     };
     try {
       const res = await companyService.createProfile(userId, payload);
       if (res.success) {
-        alert('Profile saved successfully!');
+        toast.success('Profile saved successfully!');
         setProfileExists(true);
       } else {
-        alert('Error saving profile: ' + (res.error || 'Unknown error'));
+        toast.error('Error saving profile: ' + (res.error || 'Unknown error'));
       }
     } catch (e) {
-      alert('Unexpected error: ' + (e.message || e));
+      toast.error('Unexpected error: ' + (e.message || e));
     } finally {
       setSubmitting(false);
     }
@@ -184,8 +180,12 @@ export function CompanyProfile() {
   const headerActions = profileExists ? (
     <button
       className="navbar-btn navbar-btn-outline"
+      style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '500', padding: '0.5rem 1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb', backgroundColor: '#fff', color: '#374151', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', transition: 'all 0.2s', cursor: 'pointer' }}
       onClick={() => window.open(`/public/company/${userId}`, '_blank')}
+      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f9fafb'; e.currentTarget.style.borderColor = '#d1d5db'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#fff'; e.currentTarget.style.borderColor = '#e5e7eb'; }}
     >
+      <ExternalLink size={16} />
       View Public Profile
     </button>
   ) : null;

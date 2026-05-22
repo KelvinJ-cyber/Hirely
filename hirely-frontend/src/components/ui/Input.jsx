@@ -16,25 +16,25 @@ export function Input({
   const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
   return (
-    <div>
+    <div className="tb-input-group">
       {label && (
-        <label htmlFor={id} style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#3E2522', marginBottom: 6 }}>
+        <label htmlFor={id} className="tb-input-label">
           {label}
         </label>
       )}
-      <div style={{ position: 'relative' }}>
+      <div className="tb-input-wrapper">
         {leftIcon && (
-          <div style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#9CA3AF' }}>
+          <div className="tb-input-icon tb-input-icon--left">
             {leftIcon}
           </div>
         )}
         <input
           id={id}
           type={inputType}
-          className={`tb-input ${error ? 'error' : ''} ${className}`}
+          className={`tb-input ${error ? 'tb-input--error' : ''} ${className}`}
           style={{
-            paddingLeft: leftIcon ? 40 : 16,
-            paddingRight: isPassword || rightIcon ? 40 : 16,
+            paddingLeft: leftIcon ? 42 : 16,
+            paddingRight: isPassword || rightIcon ? 42 : 16,
           }}
           {...props}
         />
@@ -42,19 +42,23 @@ export function Input({
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#9CA3AF', cursor: 'pointer', padding: 0 }}
+            className="tb-input-toggle"
             tabIndex={-1}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
-            {showPassword ? <EyeOff style={{ width: 18, height: 18 }} /> : <Eye style={{ width: 18, height: 18 }} />}
+            {showPassword
+              ? <EyeOff style={{ width: 18, height: 18 }} />
+              : <Eye style={{ width: 18, height: 18 }} />
+            }
           </button>
         )}
         {!isPassword && rightIcon && (
-          <div style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', color: '#9CA3AF' }}>
+          <div className="tb-input-icon tb-input-icon--right">
             {rightIcon}
           </div>
         )}
       </div>
-      {error && <p style={{ fontSize: '0.8rem', color: '#DC2626', marginTop: 4 }}>{error}</p>}
+      {error && <p className="tb-input-error">{error}</p>}
     </div>
   );
 }

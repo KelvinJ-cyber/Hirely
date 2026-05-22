@@ -5,6 +5,7 @@ import { Onboarding } from '../pages/Onboarding';
 import { Dashboard } from '../pages/Dashboard';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import { PublicCompanyProfile } from '../pages/PublicCompanyProfile';
+import { PostJob } from '../pages/PostJob';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export function AppRoutes() {
@@ -15,16 +16,23 @@ export function AppRoutes() {
       <Route path="/onboarding" element={
         <ProtectedRoute><Onboarding /></ProtectedRoute>
       } />
+      {/* Student dashboard */}
       <Route path="/dashboard" element={
         <ProtectedRoute><Dashboard /></ProtectedRoute>
       } />
       {/* Company routes */}
-      <Route path="/Cdashboard" element={<Dashboard />} />
-      <Route path="/company-profile" element={<CompanyProfile />} />
-      <Route path="/post-job" element={<CompanyProfile />} />
+      <Route path="/Cdashboard" element={
+        <ProtectedRoute><Dashboard /></ProtectedRoute>
+      } />
+      <Route path="/company-profile" element={
+        <ProtectedRoute><CompanyProfile /></ProtectedRoute>
+      } />
+      <Route path="/post-job" element={
+        <ProtectedRoute><PostJob /></ProtectedRoute>
+      } />
       <Route path="/public/company/:userId" element={<PublicCompanyProfile />} />
-      {/* Catch-all — must be LAST */}
-      <Route path="*" element={<Navigate to="/company-profile" replace />} />
+      {/* Catch-all — redirect to login */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
