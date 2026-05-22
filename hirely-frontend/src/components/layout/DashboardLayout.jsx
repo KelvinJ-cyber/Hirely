@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import {
   Briefcase, LayoutDashboard, PlusCircle, Building2,
   Bell, LogOut, Menu, X, Eye, Save,
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
 
 export function DashboardLayout({ children, headerActions }) {
   const navigate = useNavigate();
+  const { user, role, logout } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const closeSidebar = () => setSidebarOpen(false);
@@ -56,7 +58,7 @@ export function DashboardLayout({ children, headerActions }) {
           </NavLink>
           <button
             className="sidebar-link danger"
-            onClick={() => { closeSidebar(); navigate('/login'); }}
+            onClick={() => { closeSidebar(); logout(); navigate('/login'); }}
           >
             <LogOut />
             Logout
@@ -85,10 +87,12 @@ export function DashboardLayout({ children, headerActions }) {
             {headerActions}
 
             <div className="navbar-avatar">
-              <div className="navbar-avatar-img">VT</div>
+              <div className="navbar-avatar-img">
+                {user?.fullName ? user.fullName.charAt(0).toUpperCase() : 'U'}
+              </div>
               <div className="navbar-avatar-info">
-                <span className="navbar-avatar-name">Vanguard Tech</span>
-                <span className="navbar-avatar-role">recruiter</span>
+                <span className="navbar-avatar-name">{user?.fullName || 'User'}</span>
+                <span className="navbar-avatar-role">{role ? role.toLowerCase() : 'user'}</span>
               </div>
             </div>
           </div>

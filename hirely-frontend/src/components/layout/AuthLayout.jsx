@@ -2,26 +2,31 @@ import { Briefcase } from 'lucide-react';
 
 export function AuthLayout({ children, title, subtitle }) {
   return (
-    <div style={{ height: '100vh', background: '#FFE0B2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', padding: '2rem 1rem', overflowY: 'auto' }}>
-      {/* Logo */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-        <div style={{ width: 36, height: 36, background: '#3E2522', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(62,37,34,0.2)' }}>
-          <Briefcase style={{ width: 18, height: 18, color: '#fff' }} />
-        </div>
-        <span style={{ fontSize: '1.4rem', fontWeight: 700, color: '#3E2522', letterSpacing: '-0.02em' }}>TalentBridge</span>
+    <div className="auth-page">
+      {/* Animated background shapes */}
+      <div className="auth-bg-shapes">
+        <div className="auth-shape auth-shape-1" />
+        <div className="auth-shape auth-shape-2" />
+        <div className="auth-shape auth-shape-3" />
       </div>
 
-      {/* Heading */}
-      {title && <h1 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#3E2522', textAlign: 'center', margin: 0 }}>{title}</h1>}
-      {subtitle && (
-        <p style={{ fontSize: '0.8rem', color: '#8C6E63', textAlign: 'center', marginTop: 4, marginBottom: '1rem', maxWidth: 380, lineHeight: 1.4 }}>
-          {subtitle}
-        </p>
-      )}
+      <div className="auth-container">
+        {/* Logo */}
+        <div className="auth-logo-group">
+          <div className="auth-logo-icon">
+            <Briefcase style={{ width: 20, height: 20, color: '#fff' }} />
+          </div>
+          <span className="auth-logo-text">TalentBridge</span>
+        </div>
 
-      {/* Card */}
-      <div className="auth-card" style={{ padding: '1.75rem 2rem', width: '100%', maxWidth: '500px', borderRadius: '16px',}}>
-        {children}
+        {/* Heading */}
+        {title && <h1 className="auth-title">{title}</h1>}
+        {subtitle && <p className="auth-subtitle">{subtitle}</p>}
+
+        {/* Card */}
+        <div className="auth-card">
+          {children}
+        </div>
       </div>
     </div>
   );

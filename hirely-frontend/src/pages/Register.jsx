@@ -40,8 +40,17 @@ export function Register() {
     if (!validation.success) { setErrors(validation.errors); return; }
     const { confirmPassword, ...rest } = formData;
     const result = await register(rest);
-    if (result.success) navigate('/onboarding');
-    else setApiError(result.error);
+    if (result.success) {
+      // Companies skip onboarding — go straight to dashboard
+      const userRole = result.data?.roles || formData.roles;
+      if (userRole === 'COMPANY') {
+        navigate('/Cdashboard');
+      } else {
+        navigate('/onboarding');
+      }
+    } else {
+      setApiError(result.error);
+    }
   };
 
   return (
@@ -50,7 +59,7 @@ export function Register() {
       subtitle="Join the platform connecting top-tier talent with world-class opportunities."
     >
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-        <RoleTab selected={formData.role} onChange={(role) => setFormData((p) => ({ ...p, role }))} />
+        <RoleTab selected={formData.roles} onChange={(roles) => setFormData((p) => ({ ...p, roles }))} />
 
         {apiError && (
           <div style={{ padding: 10, background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.15)', borderRadius: 10, fontSize: '0.8rem', color: '#DC2626', textAlign: 'center' }}>
