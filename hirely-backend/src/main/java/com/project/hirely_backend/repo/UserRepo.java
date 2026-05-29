@@ -16,5 +16,4 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     List<User> findByRoles(Roles roles);
 
-    List<User> findByRolesAndIsApproved(Roles roles, Boolean isApproved);
 }

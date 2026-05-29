@@ -32,10 +32,10 @@ public class StudentProfileDetails{
     @JoinColumn(name = "profile_id")
     private User user;
 
-    @OneToMany(mappedBy = "profileDetails", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "profileDetails", cascade = CascadeType.ALL)
     private List<Education> educationList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "profileDetails", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "profileDetails", cascade = CascadeType.ALL)
     private List<Experience> experienceList = new ArrayList<>();
 
 

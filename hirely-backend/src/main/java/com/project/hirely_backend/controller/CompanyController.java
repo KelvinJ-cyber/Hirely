@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/companies")
@@ -44,6 +46,11 @@ public class CompanyController {
     public ResponseEntity<Void> deleteJob(@PathVariable Long jobId, @PathVariable Long companyId) {
         companyService.deleteJob(jobId, companyId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/listings/{userId}")
+    public ResponseEntity<List<CompanyJobCardResponse>> getCompanyJobs(@PathVariable Long userId) {
+        return ResponseEntity.ok(companyService.getALlCompanyJobs(userId));
     }
 
 

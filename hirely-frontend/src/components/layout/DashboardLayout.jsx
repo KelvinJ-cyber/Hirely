@@ -8,7 +8,7 @@ import {
 import '../../styles/dashboard.css';
 
 const NAV_ITEMS = [
-  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/Cdashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/post-job', label: 'Post a Job', icon: PlusCircle },
   { to: '/company-profile', label: 'Company Profile', icon: Building2 },
 ];

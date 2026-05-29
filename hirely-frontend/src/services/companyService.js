@@ -98,5 +98,77 @@ export const companyService = {
         error: error.response?.data?.message || error.message || 'Failed to create job posting.',
       };
     }
+  },
+
+  /**
+   * Fetches all job listings for a company.
+   *
+   * @param {string|number} userId - The user ID of the company owner.
+   * @returns {Promise<ServiceResponse>}
+   */
+  getListings: async (userId) => {
+    if (!userId) {
+      return { success: false, error: 'User ID is required to fetch listings.' };
+    }
+
+    try {
+      const response = await api.get(`/api/companies/listings/${userId}`);
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error('[CompanyService] Error fetching listings:', error);
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || 'Failed to fetch listings.',
+      };
+    }
+  },
+
+  /**
+   * Deletes a job posting.
+   *
+   * @param {string|number} jobId - The job ID to delete.
+   * @param {string|number} companyId - The company (user) ID.
+   * @returns {Promise<ServiceResponse>}
+   */
+  deleteJob: async (jobId, companyId) => {
+    if (!jobId || !companyId) {
+      return { success: false, error: 'Job ID and Company ID are required.' };
+    }
+
+    try {
+      const response = await api.delete(`/api/companies/${jobId}/${companyId}`);
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error('[CompanyService] Error deleting job:', error);
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || 'Failed to delete job.',
+      };
+    }
+  },
+
+  /**
+   * Updates a job posting.
+   *
+   * @param {string|number} jobId - The job ID to update.
+   * @param {string|number} companyId - The company (user) ID.
+   * @param {Object} jobData - The updated job data.
+   * @returns {Promise<ServiceResponse>}
+   */
+  updateJob: async (jobId, companyId, jobData) => {
+    if (!jobId || !companyId) {
+      return { success: false, error: 'Job ID and Company ID are required.' };
+    }
+
+    try {
+      const response = await api.put(`/api/companies/${jobId}/${companyId}`, jobData);
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error('[CompanyService] Error updating job:', error);
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message || 'Failed to update job.',
+      };
+    }
   }
 };

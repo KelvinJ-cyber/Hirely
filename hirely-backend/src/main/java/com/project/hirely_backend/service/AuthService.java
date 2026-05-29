@@ -40,7 +40,6 @@ public class AuthService {
 
         userRepo.save(user);
 
-        // Generate JWT token
 
         return AuthResponse.builder()
                 .userId(user.getId())

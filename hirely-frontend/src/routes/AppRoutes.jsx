@@ -3,6 +3,7 @@ import { Register } from '../pages/Register';
 import { Login } from '../pages/Login';
 import { Onboarding } from '../pages/Onboarding';
 import { Dashboard } from '../pages/Dashboard';
+import { StudentDashboard } from '../pages/StudentDashboard';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import { PublicCompanyProfile } from '../pages/PublicCompanyProfile';
 import { PostJob } from '../pages/PostJob';
@@ -25,7 +26,7 @@ export function AppRoutes() {
         <ProtectedRoute><Onboarding /></ProtectedRoute>
       } />
       <Route path="/dashboard" element={
-        <ProtectedRoute><Dashboard /></ProtectedRoute>
+        <ProtectedRoute><StudentDashboard /></ProtectedRoute>
       } />
       <Route path="/Cdashboard" element={
         <ProtectedRoute><Dashboard /></ProtectedRoute>
