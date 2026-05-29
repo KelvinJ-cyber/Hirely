@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,6 +36,11 @@ public class StudentController {
     @GetMapping("/me/{userId}")
     public ResponseEntity<StudentProfileResponse> getCurrentUser(@PathVariable Long userId) {
         return ResponseEntity.ok(studentService.getCurrentUser(userId));
+    }
+
+    @GetMapping("/jobs")
+    public ResponseEntity<List<StudentJobCardsResponse>> getAllJobs() {
+        return ResponseEntity.ok(studentService.getAllJobs());
     }
 
     // ==================== EDUCATION ====================

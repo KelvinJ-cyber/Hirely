@@ -149,7 +149,7 @@ public class CompanyService {
     }
 
     // Helper: Map to full response
-    private JobPostingResponse mapToResponse(JobPosting job) {
+    public static JobPostingResponse mapToResponse(JobPosting job) {
         return JobPostingResponse.builder()
                 .id(job.getId())
                 .companyId(job.getCompany().getId())
