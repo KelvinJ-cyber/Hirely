@@ -155,9 +155,9 @@ const jobs = {
 };
 
 export function JobDetails() {
-  const { id } = useParams();
+  const { jobId } = useParams();
 
-  const job = jobs[id];
+  const job = jobs[jobId];
 
   if (!job) {
     return <h1>Job not found</h1>;
