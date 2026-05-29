@@ -33,8 +33,10 @@ public class JobPosting {
 
     private String department;
 
+    @Column( length = 10000)
     private String roleOverview;
 
+    @Column( length = 10000)
     private String requirementsAndQualifications;
 
     @Enumerated(EnumType.STRING)

@@ -3,12 +3,15 @@ import { Register } from '../pages/Register';
 import { Login } from '../pages/Login';
 import { Onboarding } from '../pages/Onboarding';
 import { Dashboard } from '../pages/Dashboard';
+import { StudentDashboard } from '../pages/StudentDashboard';
 import { CompanyProfile } from '../pages/CompanyProfile';
 import { PublicCompanyProfile } from '../pages/PublicCompanyProfile';
 import { PostJob } from '../pages/PostJob';
+import { FindJobs } from '../pages/FindJobs';
 import { ProtectedRoute } from './ProtectedRoute';
 import { JobDetails } from '../pages/JobDetails';
 import { FindJob } from '../pages/FindJob';
+import { StudentApplications } from '../pages/StudentApplications';
 
 export function AppRoutes() {
   return (
@@ -24,8 +27,14 @@ export function AppRoutes() {
       <Route path="/onboarding" element={
         <ProtectedRoute><Onboarding /></ProtectedRoute>
       } />
+      <Route path="/find-jobs" element={
+        <ProtectedRoute><FindJobs /></ProtectedRoute>
+      } />
       <Route path="/dashboard" element={
-        <ProtectedRoute><Dashboard /></ProtectedRoute>
+        <ProtectedRoute><StudentDashboard /></ProtectedRoute>
+      } />
+      <Route path="/applications" element={
+        <ProtectedRoute><StudentApplications /></ProtectedRoute>
       } />
       <Route path="/Cdashboard" element={
         <ProtectedRoute><Dashboard /></ProtectedRoute>

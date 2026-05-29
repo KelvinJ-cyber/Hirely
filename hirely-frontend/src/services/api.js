@@ -20,6 +20,8 @@ export const userService = {
       'Content-Type': 'multipart/form-data',
     },
   }),
+  getProfile: (userId) => api.get(`/api/users/me/${userId}`),
+  getJobs: () => api.get('/api/users/jobs'),
 };
 
 export default api;

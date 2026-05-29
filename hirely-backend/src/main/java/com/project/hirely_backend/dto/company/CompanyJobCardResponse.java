@@ -1,19 +1,19 @@
 package com.project.hirely_backend.dto.company;
 
 import com.project.hirely_backend.entities.company.JobType;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class JobListingResponse {
+public class CompanyJobCardResponse {
     private Long id;
-    private String companyName;
     private String title;
-    private JobType jobType;
     private String location;
-    private String salaryRange;
-    private int numberOfApplicants;
-    private LocalDateTime createdAt;
+    private JobType jobType;
+    private Boolean isActive;
+    private int totalApplicants;
+    private LocalDateTime postedAt;
 }

@@ -1,20 +1,20 @@
 package com.project.hirely_backend.service;
 
+import com.project.hirely_backend.dto.company.JobPostingResponse;
 import com.project.hirely_backend.dto.user.*;
 import com.project.hirely_backend.entities.Roles;
 import com.project.hirely_backend.entities.User;
+import com.project.hirely_backend.entities.company.JobPosting;
 import com.project.hirely_backend.entities.student.Education;
 import com.project.hirely_backend.entities.student.Experience;
 import com.project.hirely_backend.entities.student.StudentProfileDetails;
-import com.project.hirely_backend.repo.EducationRepo;
-import com.project.hirely_backend.repo.ExperienceRepo;
-import com.project.hirely_backend.repo.StudentProfileRepo;
-import com.project.hirely_backend.repo.UserRepo;
+import com.project.hirely_backend.repo.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +25,7 @@ public class StudentService {
     private final StudentProfileRepo studentProfileRepo;
     private final EducationRepo educationRepo;
     private final ExperienceRepo experienceRepo;
+    private final JobPostingRepo jobPostingRepo;
 
     public void createProfile(Long userId, CreateProfileRequest dto) {
 
@@ -189,18 +190,6 @@ public class StudentService {
         studentProfileRepo.save(profile);
     }
 
-    public EducationDTO.ResumeDownloadResponse downloadMyResume(Long applicationId, Long userId) {
-        User student = userRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Student not found"));
-
-        StudentProfileDetails profile = studentProfileRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found!"));
-
-        return EducationDTO.ResumeDownloadResponse.builder()
-                .fileName(profile.getFileName())
-                .fileData(profile.getData())
-                .build();
-    }
 
     // ==================== MAPPERS ====================
 
@@ -250,6 +239,28 @@ public class StudentService {
                 .skillSet(user.getProfileDetails().getSkillSet())
                 .build();
     }
+    public List<StudentJobCardsResponse> getAllJobs(){
+        return jobPostingRepo.findAll()
+                .stream()
+                .map(job -> StudentJobCardsResponse.builder()
+                        .id(job.getId())
+                        .title(job.getTitle())
+                        .companyName(job.getCompany().getCompanyDetails().getLegalName())
+                        .location(job.getLocation())
+                        .jobType(job.getJobType())
+                        .techStack(job.getTechStack())
+                        .build())
+                .collect(Collectors.toList());
+
+    }
+
+    public JobPostingResponse getJobById(Long jobId) {
+        JobPosting job = jobPostingRepo.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found!"));
+
+        return CompanyService.mapToResponse(job);
+    }
+
 
     // Get currently logged-in user
     public StudentProfileResponse getCurrentUser(Long userId) {
