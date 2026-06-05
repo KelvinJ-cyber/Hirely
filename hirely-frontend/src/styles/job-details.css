@@ -1,0 +1,680 @@
+/* ═══════════════════════════════════════════════════
+   Job Details – Full-page Detail View
+   ═══════════════════════════════════════════════════ */
+
+/* ── Back Bar ── */
+.jd-back-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.jd-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #8C6E63;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.jd-back-link:hover {
+  color: #3E2522;
+  background: rgba(211, 163, 118, 0.08);
+}
+
+.jd-back-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.jd-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E0DB;
+  color: #8C6E63;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.jd-icon-btn:hover {
+  border-color: #D3A376;
+  color: #3E2522;
+  background: rgba(211, 163, 118, 0.04);
+}
+
+/* ── Main Grid Layout ── */
+.jd-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .jd-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Hero Card ── */
+.jd-hero {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #F3E8DE;
+  padding: 2rem;
+  margin-bottom: 1.75rem;
+  transition: box-shadow 0.25s ease;
+}
+
+.jd-hero:hover {
+  box-shadow: 0 4px 24px rgba(62, 37, 34, 0.06);
+}
+
+.jd-hero-company-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(211, 163, 118, 0.15), rgba(211, 163, 118, 0.08));
+  border: 1.5px solid #F3E8DE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.jd-hero-company-icon svg {
+  color: #D3A376;
+}
+
+.jd-badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.jd-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.jd-badge.type {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3B82F6;
+}
+
+.jd-badge.active {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16A34A;
+}
+
+.jd-hero-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #3E2522;
+  margin: 0 0 12px;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.jd-hero-meta {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  color: #8C6E63;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.jd-hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.jd-hero-meta-item svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.jd-hero-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.jd-apply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: #D3A376;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(211, 163, 118, 0.3);
+}
+
+.jd-apply-btn:hover {
+  background: #C4905F;
+  box-shadow: 0 4px 18px rgba(211, 163, 118, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ── Stats Row ── */
+.jd-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #F3E8DE;
+}
+
+.jd-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jd-stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(211, 163, 118, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.jd-stat-icon svg {
+  color: #D3A376;
+  width: 18px;
+  height: 18px;
+}
+
+.jd-stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #B8A99E;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.jd-stat-value {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin-top: 1px;
+}
+
+/* ── Section Cards (About, Requirements, etc.) ── */
+.jd-section {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #F3E8DE;
+  padding: 2rem;
+  margin-bottom: 1.75rem;
+  transition: box-shadow 0.25s ease;
+}
+
+.jd-section:hover {
+  box-shadow: 0 4px 24px rgba(62, 37, 34, 0.06);
+}
+
+.jd-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin: 0 0 1.25rem;
+}
+
+.jd-section-title .jd-section-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D3A376;
+  flex-shrink: 0;
+}
+
+.jd-section-body {
+  font-size: 0.9rem;
+  color: #5B4636;
+  line-height: 1.85;
+}
+
+.jd-section-body p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.jd-section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.jd-section-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 0.88rem;
+  color: #5B4636;
+  line-height: 1.6;
+}
+
+.jd-section-list li .jd-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D3A376;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+/* ── Tech Stack Tags ── */
+.jd-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.5rem;
+}
+
+.jd-tech-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: rgba(211, 163, 118, 0.1);
+  border: 1px solid rgba(211, 163, 118, 0.2);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3E2522;
+  transition: all 0.2s ease;
+}
+
+.jd-tech-tag:hover {
+  background: rgba(211, 163, 118, 0.18);
+  transform: translateY(-1px);
+}
+
+/* ── Sidebar ── */
+.jd-sidebar-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #F3E8DE;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.25s ease;
+}
+
+.jd-sidebar-card:hover {
+  box-shadow: 0 4px 24px rgba(62, 37, 34, 0.06);
+}
+
+/* Company card */
+.jd-company-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.jd-company-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #D3A376, #C4905F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 16px rgba(211, 163, 118, 0.3);
+}
+
+.jd-company-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin: 0 0 4px;
+}
+
+.jd-company-id {
+  font-size: 0.78rem;
+  color: #B8A99E;
+}
+
+.jd-company-about {
+  font-size: 0.85rem;
+  color: #8C6E63;
+  line-height: 1.7;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.jd-company-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+.jd-company-stat-card {
+  background: #FFF8F0;
+  border: 1px solid #F3E8DE;
+  border-radius: 14px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.jd-company-stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #B8A99E;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.jd-company-stat-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin-top: 4px;
+}
+
+.jd-view-company-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 11px;
+  border-radius: 12px;
+  border: 1.5px solid #E5E0DB;
+  background: #FFFFFF;
+  cursor: pointer;
+  font-weight: 600;
+  color: #5B4636;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.jd-view-company-btn:hover {
+  border-color: #D3A376;
+  color: #D3A376;
+  background: rgba(211, 163, 118, 0.04);
+}
+
+/* ── Similar Jobs ── */
+.jd-similar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.jd-similar-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3E2522;
+}
+
+.jd-similar-see-all {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3B82F6;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.jd-similar-see-all:hover {
+  color: #2563EB;
+}
+
+.jd-similar-job {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #F3E8DE;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jd-similar-job:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.jd-similar-job:first-child {
+  padding-top: 0;
+}
+
+.jd-similar-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #D3A376, #C4905F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.jd-similar-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.jd-similar-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #3E2522;
+  margin-bottom: 3px;
+}
+
+.jd-similar-company {
+  font-size: 0.75rem;
+  color: #8C6E63;
+  margin-bottom: 5px;
+}
+
+.jd-similar-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  color: #B8A99E;
+}
+
+.jd-similar-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.jd-similar-details-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #3B82F6;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin-top: 4px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.jd-similar-details-link:hover {
+  color: #2563EB;
+}
+
+/* ── Job Alerts Card ── */
+.jd-alerts-card {
+  background: linear-gradient(135deg, rgba(211, 163, 118, 0.12), rgba(211, 163, 118, 0.05));
+  border: 1px solid rgba(211, 163, 118, 0.25);
+  border-radius: 20px;
+  padding: 1.75rem;
+  text-align: center;
+}
+
+.jd-alerts-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(211, 163, 118, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.jd-alerts-icon svg {
+  color: #D3A376;
+}
+
+.jd-alerts-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin: 0 0 6px;
+}
+
+.jd-alerts-text {
+  font-size: 0.82rem;
+  color: #8C6E63;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.jd-alerts-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E0DB;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #3E2522;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.jd-alerts-btn:hover {
+  border-color: #D3A376;
+  color: #D3A376;
+  background: rgba(211, 163, 118, 0.04);
+}
+
+/* ── Loading & Error States ── */
+.jd-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  gap: 1.25rem;
+}
+
+.jd-loading-spinner {
+  animation: spin 1s linear infinite;
+  color: #D3A376;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.jd-loading-text {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #8C6E63;
+}
+
+.jd-error {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.jd-error-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: rgba(220, 38, 38, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: #DC2626;
+}
+
+.jd-error h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin: 0 0 6px;
+}
+
+.jd-error p {
+  font-size: 0.88rem;
+  color: #8C6E63;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .jd-hero {
+    padding: 1.5rem;
+  }
+
+  .jd-hero-title {
+    font-size: 1.35rem;
+  }
+
+  .jd-stats-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .jd-section {
+    padding: 1.5rem;
+  }
+
+  .jd-back-actions {
+    display: none;
+  }
+}

@@ -1,5 +1,6 @@
 package com.project.hirely_backend.controller;
 
+import com.project.hirely_backend.dto.company.JobPostingResponse;
 import com.project.hirely_backend.dto.user.*;
 import com.project.hirely_backend.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,10 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getCurrentUser(userId));
     }
 
+    @GetMapping("/job-details/{jobId}")
+    public ResponseEntity<JobPostingResponse> getJobDetails(@PathVariable Long jobId) {
+        return ResponseEntity.ok(studentService.getJobById(jobId));
+    }
     @GetMapping("/jobs")
     public ResponseEntity<List<StudentJobCardsResponse>> getAllJobs() {
         return ResponseEntity.ok(studentService.getAllJobs());

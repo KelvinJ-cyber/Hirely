@@ -248,6 +248,7 @@ public class StudentService {
                         .companyName(job.getCompany().getCompanyDetails().getLegalName())
                         .location(job.getLocation())
                         .jobType(job.getJobType())
+                        .salary(job.getSalaryRange())
                         .techStack(job.getTechStack())
                         .build())
                 .collect(Collectors.toList());

@@ -395,7 +395,7 @@ export function Dashboard() {
                       <Users size={16} style={{ color: '#8B5CF6' }} />
                       <div>
                         <span className="applicant-label">TOTAL APPLICANTS</span>
-                        <span className="applicant-count">{job.totalApplicant ?? 0}</span>
+                        <span className="applicant-count">{job.totalApplicants ?? 0}</span>
                       </div>
                     </div>
                     <button className="view-list-btn" onClick={() => toast('Applicant list coming soon.')}>

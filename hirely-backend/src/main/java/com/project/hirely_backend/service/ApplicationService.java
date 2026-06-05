@@ -44,6 +44,7 @@ public class ApplicationService {
                 .orElseThrow(() -> new RuntimeException("Job not found"));
 
         job.setNumberOfApplicants(job.getNumberOfApplicants() + 1);
+        System.out.println(job.getNumberOfApplicants());
         jobPostingRepo.save(job);
 
         if (!job.getIsActive()) {

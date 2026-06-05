@@ -10,7 +10,7 @@ import { PostJob } from '../pages/PostJob';
 import { FindJobs } from '../pages/FindJobs';
 import { ProtectedRoute } from './ProtectedRoute';
 import { JobDetails } from '../pages/JobDetails';
-import { FindJob } from '../pages/FindJob';
+import { ApplyJob } from '../pages/ApplyJob';
 import { StudentApplications } from '../pages/StudentApplications';
 
 export function AppRoutes() {
@@ -18,12 +18,13 @@ export function AppRoutes() {
     <Routes>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path ="/job/:jobId" element={
+      <Route path="/job/:id" element={
         <ProtectedRoute><JobDetails /></ProtectedRoute>
       } />
-      <Route path="/findjobs" element={
-        <ProtectedRoute><FindJob /></ProtectedRoute>
+      <Route path="/apply/:jobId" element={
+        <ProtectedRoute><ApplyJob /></ProtectedRoute>
       } />
+
       <Route path="/onboarding" element={
         <ProtectedRoute><Onboarding /></ProtectedRoute>
       } />

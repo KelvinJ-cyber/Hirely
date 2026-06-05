@@ -1,0 +1,477 @@
+/* ═══════════════════════════════════════════════════
+   Apply Job Page
+   ═══════════════════════════════════════════════════ */
+
+.aj-layout {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.aj-header {
+  margin-bottom: 2rem;
+}
+
+.aj-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #8C6E63;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+  margin-left: -12px;
+}
+
+.aj-back-link:hover {
+  color: #3E2522;
+  background: rgba(211, 163, 118, 0.08);
+}
+
+.aj-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #3E2522;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.aj-subtitle {
+  font-size: 0.95rem;
+  color: #8C6E63;
+  margin: 0;
+}
+
+/* ── Job Brief Card ── */
+.aj-job-card {
+  background: #F9F9F9;
+  border: 1px solid #E5E0DB;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.aj-job-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.aj-job-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: #3B82F6;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aj-job-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin: 0 0 4px;
+}
+
+.aj-job-meta {
+  font-size: 0.85rem;
+  color: #8C6E63;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aj-job-meta .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D3A376;
+}
+
+.aj-job-badges {
+  display: flex;
+  gap: 12px;
+}
+
+.aj-job-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5B4636;
+  padding: 4px 10px;
+  background: #F3E8DE;
+  border-radius: 6px;
+}
+
+/* ── Content Grid ── */
+.aj-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+}
+
+/* ── Form Section ── */
+.aj-form-section {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid #F3E8DE;
+}
+
+.aj-field-group {
+  margin-bottom: 2rem;
+}
+
+.aj-field-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.aj-field-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #3E2522;
+}
+
+.aj-field-hint {
+  font-size: 0.8rem;
+  color: #8C6E63;
+}
+
+/* ── File Upload ── */
+.aj-file-upload {
+  border: 1px solid #E5E0DB;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+}
+
+.aj-file-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.aj-file-icon {
+  color: #8C6E63;
+}
+
+.aj-file-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.aj-file-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #3E2522;
+  margin-bottom: 2px;
+}
+
+.aj-file-meta {
+  font-size: 0.8rem;
+  color: #8C6E63;
+}
+
+.aj-file-remove {
+  background: none;
+  border: none;
+  color: #8C6E63;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.aj-file-remove:hover {
+  background: #F3E8DE;
+  color: #DC2626;
+}
+
+.aj-file-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.aj-file-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.aj-file-btn {
+  padding: 10px 20px;
+  border: 1.5px dashed #D3A376;
+  background: rgba(211, 163, 118, 0.05);
+  color: #D3A376;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aj-file-btn:hover {
+  background: rgba(211, 163, 118, 0.1);
+}
+
+/* ── Textarea ── */
+.aj-textarea-wrapper {
+  position: relative;
+}
+
+.aj-textarea {
+  width: 100%;
+  height: 200px;
+  padding: 1.25rem;
+  border: 1px solid #E5E0DB;
+  border-radius: 12px;
+  resize: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #3E2522;
+  line-height: 1.6;
+  transition: all 0.2s;
+}
+
+.aj-textarea:focus {
+  outline: none;
+  border-color: #D3A376;
+  box-shadow: 0 0 0 3px rgba(211, 163, 118, 0.15);
+}
+
+.aj-textarea::placeholder {
+  color: #B8A99E;
+}
+
+.aj-char-count {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.75rem;
+  color: #B8A99E;
+  font-weight: 500;
+}
+
+/* ── Actions ── */
+.aj-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #F3E8DE;
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+}
+
+.aj-btn-group {
+  display: flex;
+  gap: 12px;
+}
+
+.aj-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.aj-btn-cancel {
+  background: transparent;
+  color: #8C6E63;
+}
+
+.aj-btn-cancel:hover {
+  background: #F3E8DE;
+  color: #3E2522;
+}
+
+.aj-btn-draft {
+  background: #FFFFFF;
+  border: 1px solid #E5E0DB;
+  color: #3E2522;
+}
+
+.aj-btn-draft:hover {
+  border-color: #D3A376;
+  color: #D3A376;
+}
+
+.aj-btn-submit {
+  background: #3B82F6;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aj-btn-submit:hover:not(:disabled) {
+  background: #2563EB;
+}
+
+.aj-btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.aj-disclaimer {
+  font-size: 0.75rem;
+  color: #B8A99E;
+  line-height: 1.6;
+  text-align: center;
+  margin-top: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Sidebar ── */
+.aj-sidebar-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #F3E8DE;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.aj-sidebar-card.tips {
+  border-color: rgba(59, 130, 246, 0.2);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.aj-sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.aj-sidebar-title.blue {
+  color: #3B82F6;
+}
+
+.aj-sidebar-title.dark {
+  color: #3E2522;
+}
+
+.aj-tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.aj-tips-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #5B4636;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.aj-tips-list li .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #3B82F6;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+.aj-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.aj-progress-label {
+  color: #8C6E63;
+}
+
+.aj-progress-val {
+  font-weight: 700;
+  color: #3E2522;
+}
+
+.aj-progress-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.aj-progress-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #5B4636;
+}
+
+.aj-progress-step.done svg {
+  color: #16A34A;
+}
+
+.aj-progress-step.pending {
+  color: #B8A99E;
+}
+
+.aj-progress-step.pending svg {
+  color: #E5E0DB;
+}
+
+.aj-alert-card {
+  background: #F9F9F9;
+  border: 1px solid #E5E0DB;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  gap: 12px;
+}
+
+.aj-alert-icon {
+  color: #8C6E63;
+  flex-shrink: 0;
+}
+
+.aj-alert-text {
+  font-size: 0.82rem;
+  color: #5B4636;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.aj-alert-text strong {
+  color: #3E2522;
+}
+
+@media (max-width: 900px) {
+  .aj-content-grid {
+    grid-template-columns: 1fr;
+  }
+}

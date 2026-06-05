@@ -22,6 +22,11 @@ export const userService = {
   }),
   getProfile: (userId) => api.get(`/api/users/me/${userId}`),
   getJobs: () => api.get('/api/users/jobs'),
+  getJobDetails: (id) => api.get(`/api/users/job-details/${id}`),
+};
+
+export const applicationService = {
+  applyToJob: (userId, data) => api.post(`/api/applications/apply/${userId}`, data),
 };
 
 export default api;
