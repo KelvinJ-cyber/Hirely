@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Search, MapPin, Briefcase, DollarSign, Bookmark,
   ChevronLeft, ChevronRight, ArrowRight, Loader2,
@@ -36,6 +37,7 @@ function getInitial(name) {
 
 export function FindJobs() {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const firstName = user?.fullName?.split(' ')[0] || 'there';
 
   const [jobs, setJobs] = useState([]);
@@ -212,7 +214,7 @@ export function FindJobs() {
                 </div>
 
                 {/* Details button */}
-                <button className="fj-details-btn" onClick={() => toast('Job details coming soon.')}>
+                <button className="fj-details-btn" onClick={() => navigate(`/job/${job.id}`)}>
                   Details <ArrowRight size={15} />
                 </button>
               </div>

@@ -1,0 +1,524 @@
+/* ═══════════════════════════════════════════════════
+   Find Jobs – Job Board Page
+   ═══════════════════════════════════════════════════ */
+
+/* ── Greeting ── */
+.fj-greeting {
+  margin-bottom: 1.75rem;
+}
+
+.fj-greeting h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.fj-greeting p {
+  font-size: 0.88rem;
+  color: #8C6E63;
+  margin: 0;
+}
+
+/* ── Search Bar ── */
+.fj-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E0DB;
+  border-radius: 14px;
+  padding: 8px 8px 8px 16px;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.2s ease;
+}
+
+.fj-search-bar:focus-within {
+  border-color: #D3A376;
+  box-shadow: 0 0 0 3px rgba(211, 163, 118, 0.12);
+}
+
+.fj-search-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.fj-search-field svg {
+  color: #B8A99E;
+  flex-shrink: 0;
+}
+
+.fj-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.88rem;
+  color: #3E2522;
+  background: transparent;
+  min-width: 0;
+}
+
+.fj-search-input::placeholder {
+  color: #B8A99E;
+}
+
+.fj-search-divider {
+  width: 1px;
+  height: 28px;
+  background: #E5E0DB;
+  flex-shrink: 0;
+}
+
+.fj-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: #3B82F6;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.fj-search-btn:hover {
+  background: #2563EB;
+}
+
+/* ── Filter Pills ── */
+.fj-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.fj-filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border: 1.5px solid #E5E0DB;
+  background: #FFFFFF;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #8C6E63;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fj-filter-btn:hover {
+  border-color: #D3A376;
+  color: #3E2522;
+}
+
+.fj-filter-btn.active {
+  background: #3E2522;
+  border-color: #3E2522;
+  color: #FFFFFF;
+}
+
+/* ── Results Header ── */
+.fj-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.fj-results-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #3E2522;
+}
+
+.fj-new-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3B82F6;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.fj-sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: #8C6E63;
+}
+
+.fj-sort select {
+  border: 1.5px solid #E5E0DB;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 0.82rem;
+  color: #3E2522;
+  font-weight: 600;
+  background: #FFFFFF;
+  outline: none;
+  cursor: pointer;
+}
+
+/* ── Job Cards Grid ── */
+.fj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1100px) {
+  .fj-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .fj-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Single Job Card ── */
+.fj-card {
+  background: #FFFFFF;
+  border: 1.5px solid #F3E8DE;
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.fj-card:hover {
+  border-color: #D3A376;
+  box-shadow: 0 4px 20px rgba(62, 37, 34, 0.07);
+  transform: translateY(-2px);
+}
+
+.fj-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.fj-card-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #D3A376, #C4905F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.fj-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.fj-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #3E2522;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fj-card-company {
+  font-size: 0.8rem;
+  color: #8C6E63;
+}
+
+.fj-card-bookmark {
+  background: none;
+  border: none;
+  color: #C9B8AD;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.fj-card-bookmark:hover {
+  color: #3B82F6;
+  background: rgba(59, 130, 246, 0.08);
+}
+
+/* ── Tags row ── */
+.fj-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+  min-height: 26px;
+}
+
+.fj-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: #F1F5F9;
+  color: #475569;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.fj-tag.hot {
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  font-weight: 600;
+}
+
+/* ── Meta row ── */
+.fj-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.78rem;
+  color: #8C6E63;
+  margin-bottom: 16px;
+}
+
+.fj-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Details button ── */
+.fj-details-btn {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1.5px solid #E5E0DB;
+  background: #FFFFFF;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #3E2522;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.fj-details-btn:hover {
+  border-color: #3B82F6;
+  color: #3B82F6;
+  background: rgba(59, 130, 246, 0.04);
+}
+
+/* ── Promo Banner ── */
+.fj-promo {
+  background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+  border: 1px solid #BAE6FD;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.fj-promo-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: #3B82F6;
+  color: #FFFFFF;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.fj-promo h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 8px;
+}
+
+.fj-promo p {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin: 0 0 16px;
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+.fj-promo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #3B82F6;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.fj-promo-btn:hover {
+  background: #2563EB;
+}
+
+.fj-promo-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.fj-promo-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 20px;
+  background: #FFFFFF;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.fj-promo-stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fj-promo-stat-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1E293B;
+}
+
+.fj-promo-stat-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Pagination ── */
+.fj-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.fj-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fj-page-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1.5px solid #E5E0DB;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #8C6E63;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fj-page-btn:hover:not(:disabled) {
+  border-color: #3B82F6;
+  color: #3B82F6;
+}
+
+.fj-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.fj-page-btn.current {
+  background: #3B82F6;
+  border-color: #3B82F6;
+  color: #FFFFFF;
+}
+
+.fj-page-btn.nav {
+  width: auto;
+  padding: 0 8px;
+}
+
+.fj-page-ellipsis {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  color: #8C6E63;
+}
+
+.fj-pagination-info {
+  font-size: 0.8rem;
+  color: #8C6E63;
+}
+
+/* ── Loading ── */
+.fj-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+}
+
+.fj-loading-text {
+  font-size: 0.88rem;
+  color: #8C6E63;
+}
+
+@media (max-width: 900px) {
+  .fj-promo {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .fj-promo p { max-width: 100%; }
+  .fj-promo-stats { justify-content: center; }
+  .fj-search-bar { flex-wrap: wrap; }
+  .fj-search-divider { display: none; }
+}
